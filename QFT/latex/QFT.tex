@@ -1,0 +1,62 @@
+\documentclass[a4paper]{article}
+
+\usepackage{amsmath}
+\usepackage{physics}
+\usepackage{hyperref}
+\usepackage[a4paper,left=3cm,right=3cm,top=2.5cm,bottom=2.5cm]{geometry}
+
+\title{Quantum Fourier Transform}
+\author{Tzu Hsuan Chang}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+\label{sec:Intro}
+Briefly speaking, quantum Fourier transform (QFT) is discrete Fourier transform on quantum devices.
+
+
+\subsection*{Discrete Fourier Transform}
+\label{subsec:dft}
+DFT transform a $N$ dimension vector $x_0, x_1, ... ,x_{N-1}$ to another $N$ dimension vector $y_0, y_1, ... ,y_{N-1}$ as following,
+
+    \begin{equation} \label{eq1}
+    \setlength{\jot}{10pt}
+    \begin{aligned}
+        \large y_k \equiv \frac{1}{\sqrt{N}} \sum_{j=0}^{N-1} x_j e^{2\pi ijk / N}.
+    \end{aligned}
+    \end{equation}
+
+
+\subsection*{Quantum Fourier Transform}
+\label{subsec:qft}
+On the other hand, QFT, operates the same transformation but with different form of notation. Consider an orthonormal basis $\ket{0}, \ket{1}, ... ,\ket{N-1}$, QFT acting on this basis is defined to be
+
+    \begin{equation} \label{eq2}
+    \setlength{\jot}{10pt}
+    \begin{aligned}
+        \ket{j} \longrightarrow \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} e^{2 \pi i j k / N} \ket{k}.
+    \end{aligned}
+    \end{equation}
+
+Assuming $N = 2^n$, noting that we can write $\ket{k}$ into the binary form 
+$\ket{k_1 \dotso k_n}$, specifically, $k = k_1 2^{n-1} + k_2 2^{n-2} + \dotso + k_n 2^0$ 
+and 
+$\sum_{k = 0}^{2^n-1} e^{k/2^n} \ket{k} = \sum_{k_1 = 0}^{1} \dotso \sum_{k_n = 0}^{1} e^{(\sum_{l = 1}^{n} k_l 2^{-l})} \ket{k_1 \dotso k_n}$. 
+To implement QFT on quantum devices, it would be convenience to use the following representation,
+
+    \begin{equation} \label{eq3}
+    \setlength{\jot}{10pt}
+    \begin{aligned}
+        \ket{j} &\longrightarrow \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} e^{2 \pi i j k / N} \ket{k} \\
+            &= \frac{1}{2^{n/2}}   \sum_{k=0}^{2^n-1}   e^{2 \pi i j k / 2^n}   \ket{k} \\
+            &= \frac{1}{2^{n/2}}    \sum_{k_1 = 0}^{1} \dotso \sum_{k_n = 0}^{1}   e^{2 \pi i j (\sum_{l=1}^{n} k_l 2^{-l})}   \ket{k_1 \dotso k_n} \\
+            &= \frac{1}{2^{n/2}}    \sum_{k_1 = 0}^{1} \dotso \sum_{k_n = 0}^{1}   \bigotimes_{l = 1}^{n} \   e^{2 \pi i j k_l / 2^{-l}}   \ket{k_l} \\
+            &= \frac{1}{2^{n/2}}    \bigotimes_{l = 1}^{n} \   \bigg[ \sum_{k_l = 0}^{1}   e^{2 \pi i j k_l / 2^{-l}}   \ket{k_l} \bigg] \\
+            &= \frac{1}{2^{n/2}}    \bigotimes_{l = 1}^{n} \   \bigg[ \ket{0} + e^{2 \pi i j / 2^{-l}} \ket{1} \bigg] \\
+            &= \frac { \big( \ket{0} + e^{2 \pi i 0.j_n} \ket{1} \big)   \big( \ket{0} + e^{2 \pi i 0.j_{n-1} j_n} \ket{1} \big)   \dotso   \big( \ket{0} + e^{2 \pi i 0.j_1 j_2 \cdots j_n} \ket{1} \big) } {2^{n/2}}.
+    \end{aligned}
+    \end{equation}
+
+
+\end{document}
