@@ -1,0 +1,18 @@
+\begin{thebibliography}{1}
+
+\bibitem{Biamonte:2017aa}
+J.~Biamonte, P.~Wittek, N.~Pancotti, P.~Rebentrost, N.~Wiebe, and S.~Lloyd.
+\newblock Quantum machine learning.
+\newblock {\em Nature}, 549(7671):195--202, 2017.
+
+\bibitem{coles2018quantum}
+P.~J. Coles, S.~Eidenbenz, S.~Pakin, A.~Adedoyin, J.~Ambrosiano, P.~Anisimov,
+  W.~Casper, G.~Chennupati, C.~Coffrin, H.~Djidjev, et~al.
+\newblock Quantum algorithm implementations for beginners.
+\newblock {\em arXiv}, pages arXiv--1804, 2018.
+
+\bibitem{nielsen2002quantum}
+M.~A. Nielsen and I.~Chuang.
+\newblock Quantum computation and quantum information, 2002.
+
+\end{thebibliography}
