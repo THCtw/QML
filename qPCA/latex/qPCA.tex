@@ -1,0 +1,52 @@
+\documentclass[a4paper]{article}
+
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage[a4paper,left=3cm,right=3cm,top=2.5cm,bottom=2.5cm]{geometry}
+
+\title{Quantum Principal Component Analysis}
+\author{Tzu Hsuan Chang}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+\label{sec:Intro}
+
+
+\subsection*{Density Matrix Exponentiation}
+\label{subsec:dme}
+
+    \begin{equation} \label{eq1}
+    \setlength{\jot}{10pt}
+    \begin{aligned}
+        Tr_P ( e^{-i \hat{S} \Delta t} \rho  \otimes \sigma e^{i \hat{S} \Delta t} )
+            &= Tr_P [ \, ( \cos \Delta t + i \hat{S} \sin \Delta t ) \ \rho \otimes \sigma \ ( \cos \Delta t - i \hat{S} \sin \Delta t ) ] \, \\
+            &\approx Tr_P [ \, \rho \otimes \sigma - i \Delta t [\rho, \sigma] + O(\Delta t^2) ] \, \\
+            &= \sigma - i \Delta t [\rho, \sigma] + O (\Delta t^2) \\
+            &\approx e^{-i \rho \Delta t} \ \sigma \ e^{i \rho \Delta t}
+    \end{aligned}
+    \end{equation}
+
+
+Where $Tr_P$ is the partial trace $\rho$ over the first variable and $\hat{S}$ is the swap operator. Note that $\rho \otimes \sigma \hat{S} = \rho \otimes \sigma$. By repeating \eqref{eq1} n times,
+
+    \begin{equation} \label{eq2}
+    \setlength{\jot}{10pt}
+    \begin{aligned}
+        &Tr_{P_1} Tr_{P_2} ... Tr_{P_n} [ \, e^{-i \hat{S}_n \Delta t} e^{-i \hat{S}_{n-1} \Delta t} ... e^{-i \hat{S}_1 \Delta t} ( \rho^{\otimes n}  \otimes \sigma ) e^{i \hat{S}_1 \Delta t} ... e^{i \hat{S}_{n-1} \Delta t} e^{i \hat{S}_n \Delta t} ] \, \\
+        = \ &Tr_{P_n} [ \, \ 
+            e^{-i \hat{S}_n \Delta t} \ 
+            Tr_{P_{n-1}} [\, 
+            e^{-i \hat{S}_{n-1}}
+                (... Tr_{P_1} [ \, e^{-i \hat{S}_1 \Delta t} ( \rho^{\otimes n}  \otimes \sigma ) e^{i \hat{S}_1 \Delta t} ] \,)  
+                    e^{i \hat{S}_{n-1}}
+                ] \, \
+                e^{i \hat{S}_n \Delta t} \ 
+        ] \, \\
+        \approx \ &e^{-i \rho n \Delta t} \ \sigma \ e^{i \rho n \Delta t}
+    \end{aligned}
+    \end{equation}
+
+
+\end{document}
