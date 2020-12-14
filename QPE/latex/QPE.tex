@@ -32,12 +32,49 @@ As shown on figure~\ref{fig:qpe}, the QPE circuit write the phase of $\hat U$ to
 As shown in figure~\ref{fig:qpe}, assuming $\psi$ is the eigenvector of the unitary operator $\hat U$ with eigenvalue $e^{2 \pi i \theta}$. Initially, we have
     \begin{equation} \label{eq:eq2}
     \setlength{\jot}{10pt}
-        \psi_0 = \ket{0}^{\otimes n} \psi.
+        \ket{\psi_0}   =   \ket{0}^{\otimes n} \psi.
     \end{equation}
 After applying n-bit Hadamard gates on the ancillary qubits,
-    \begin{equation} \label{eq:eq2}
+    \begin{equation} \label{eq:eq3}
     \setlength{\jot}{10pt}
-        \psi_1 = \frac{1}{2^{n/2}} (\ket{0} + \ket{1})^{\otimes n} \psi.
+        \ket{\psi_1}   =   \frac{1}{2^{n/2}} (\ket{0} + \ket{1})^{\otimes n} \psi.
+    \end{equation}
+Now we apply controlled unitary operator $C-U$. Since $\ket{\psi}$ is the eigenvector fo $\hat{U}$, we have,
+    \begin{equation} \label{eq:eq4}
+    \setlength{\jot}{10pt}
+        \hat{U}^{2^j} \ket \psi   =   \hat{U}^{2^j - 1} \ e^{2 \pi i \theta} \ket{\psi}   =   e^{2 \pi i 2^j \theta} \ket{\psi}.
+    \end{equation}
+By apply all the n controlled operations,
+    \begin{equation} \label{eq:eq5}
+    \setlength{\jot}{10pt}
+    \begin{aligned}
+        \ket{\psi_2}   &=   \frac{1}{2^{\frac{n}{2}}}   \big(\ket{0} + e^{2 \pi i \theta 2^{n-1}} \ket{1} \big)
+        \otimes \dotso 
+        \otimes \big(\ket{0} + e^{2 \pi i \theta 2^{1}} \ket{1} \big)
+        \otimes \big(\ket{0} + e^{2 \pi i \theta 2^{0}} \ket{1} \big)
+        \otimes \ket{\psi} \\
+        &=   \frac{1}{2^{\frac{n}{2}}}   \sum_{k=0}^{2^n - 1}   e^{2 \pi i \theta k} \ket{k}   \otimes \ket{\psi},
+    \end{aligned}
+    \end{equation}
+where $k$ is the integer representation of n ancillary qubits.
+Finally, we are going to apply inverse QFT to get the phase estimate of $\theta$. Note that QFT is the following operation,
+    \begin{equation} \label{eq:eq6}
+    \setlength{\jot}{10pt}
+        QFT \ket{j}   =   \frac{1}{2^{\frac{n}{2}}}   { \big( \ket{0} + e^{2 \pi i \frac{j}{2}} \ket{1} \big)
+        \otimes \big( \ket{0} + e^{2 \pi i \frac{j}{2^2}} \ket{1} \big)
+        \otimes \dotso 
+        \otimes \big( \ket{0} + e^{2 \pi i \frac{j}{2^n}} \ket{1} \big) }.
+    \end{equation}
+With $j$ replaced by $2^n \theta$, we have the following states after applying inverse QFT to the ancillary qubits,
+    \begin{equation} \label{eq:eq7}
+    \setlength{\jot}{10pt}
+        \ket{\psi_3}   =   QFT^\dagger_n   \ket{\psi_2}
+        = QFT^\dagger_n   \frac{1}{2^{\frac{n}{2}}}   \sum_{k=0}^{2^n - 1}   e^{2 \pi i \theta k} \ket{k}   \otimes \ket{\psi}
+        = \frac{1}{2^{\frac{n}{2}}}    \sum_{j=0}^{2^n - 1}   \sum_{k=0}^{2^n - 1}   e^{ -\frac{2 \pi i k}{2^n} (j - 2^n \theta)} \ket{j}   \otimes \ket{\psi}.
+    \end{equation}
+    We can find that there is a peak near $j = 2^n \theta$. Therefore, by measuring ancillary qubits in the computational basis, we would get the phase with high probability,
+    \begin{equation} \label{eq:eq8}
+        \ket{\psi_4}   =   \ket{2^n \theta} \otimes \ket{\psi}.
     \end{equation}
 
     \begin{figure}
