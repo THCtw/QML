@@ -1,6 +1,7 @@
 \documentclass[a4paper]{article}
 
 \usepackage{amsmath}
+\usepackage{physics}
 \usepackage{hyperref}
 \usepackage[a4paper,left=3cm,right=3cm,top=2.5cm,bottom=2.5cm]{geometry}
 
@@ -16,7 +17,6 @@
 
 \subsection*{Density Matrix Exponentiation}
 \label{subsec:dme}
-
     \begin{equation} \label{eq1}
     \setlength{\jot}{10pt}
     \begin{aligned}
@@ -30,7 +30,6 @@
 
 
 Where $Tr_P$ is the partial trace $\rho$ over the first variable and $\hat{S}$ is the swap operator. Note that $\rho \otimes \sigma \hat{S} = \rho \otimes \sigma$. By repeating \eqref{eq1} n times,
-
     \begin{equation} \label{eq2}
     \setlength{\jot}{10pt}
     \begin{aligned}
@@ -47,6 +46,41 @@ Where $Tr_P$ is the partial trace $\rho$ over the first variable and $\hat{S}$ i
         \approx \ &e^{-i \rho n \Delta t} \ \sigma \ e^{i \rho n \Delta t}
     \end{aligned}
     \end{equation}
+
+
+\section{Two qubits case}
+\label{sec:2qcase}
+Here, we use the quantum algorithm in Ref.\cite{coles2018quantum} to perform PCA on a two features case, where the covariance matrix can be  represented by a single qubit. The covariance matrix $\Sigma$ and eigenvalues, $e_1$ and $e_2$, of the raw data provided in Ref.\cite{coles2018quantum} are,
+\begin{equation} \label{eq:eq3}
+	\Sigma = 
+	\begin {pmatrix}
+		0.380952   &   0.573476 \\
+		0.573476   &   1.29693
+	\end {pmatrix},
+	e_1   =   1.57286,
+	e_2   =   0.105029.
+\end{equation}
+Now we are going to calculate $e_1$ and $e_2$ using quantum algorithm. 
+
+The first step is to calculate the $\hat{U}_{prep}$ classically which can prepare the two qubits pure state $\ket{\psi}$ from $\ket{0}$, where $\ket{\psi}$ is the purified state of $\Sigma$.
+
+The second step is to prepare two copies of $\ket{\psi}$ on quantum computer by $\hat{U}_{prep}$. Note that $\hat{U}_{prep}$ can be decomposed as:
+\begin{equation} \label{eq:eq4}
+	\hat{U}_{prep}   =   (\hat{U}_A \otimes \hat{U}_B)   CNOT_{AB}   (\hat{U}_A^{\prime} \otimes \hat{I}_B).
+\end{equation}
+Where $\hat{U}_i$ can be represented as,
+\begin{equation} \label{eq:eq5}
+	\begin {pmatrix}
+		\cos(\theta/2)   &   -e^{i \lambda} \sin{\theta/2} \\
+		e^{i \phi} \sin{\theta/2}   &   e^{i \lambda + \phi} \cos{\theta/2}
+	\end {pmatrix}.
+\end{equation}
+
+The third step is to calculate the purity.
+
+
+\bibliographystyle{abbrv}
+\bibliography{references}
 
 
 \end{document}
